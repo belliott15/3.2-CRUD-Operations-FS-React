@@ -13,7 +13,7 @@ export async function signUp(email, password){
 }
 
 export async function getUser(){ 
-  return client.auth.session;
+  return client.auth.session();
 }
 
 export async function getBooks(){
