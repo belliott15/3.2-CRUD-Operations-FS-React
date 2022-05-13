@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  Redirect,
 } from 'react-router-dom';
 import AuthPage from './AuthPage';
 import BookList from './BookList';
@@ -35,39 +35,45 @@ export default function App() {
   return (
     <Router>
       <div>
-        {/* { token ? */}
-        <nav>
-          <ul className='navigation'>
-            <li>
-              <Link to='/books'>Home</Link>
-            </li>
-            <li>
-              <Link to='/add'>Add Book</Link>
-            </li>
-            <li>
-              <button onClick={handleLogout}>Logout</button>
-            </li>
-          </ul>
-        </nav> 
-        {/* : ''} */}
+        { token ?
+          <nav>
+            <ul className='navigation'>
+              <li>
+                <Link to='/books'>Home</Link>
+              </li>
+              <li>
+                <Link to='/add'>Add Book</Link>
+              </li>
+              <li>
+                <p>Welcome {email}</p>
+                <button onClick={handleLogout}>Logout</button>
+              </li>
+            </ul>
+          </nav> 
+          : ''}
         <Switch>
           <Route exact path='/'>
-            {/* {user ?  */}
-            <AuthPage setEmail={setEmail} setToken={setToken} />
-            {/* // } */}
+            {token ? 
+              <Redirect to='/books' />
+              : <AuthPage setEmail={setEmail} setToken={setToken} />
+            }
           </Route>
           <Route exact path='/books'>
-            {/* {user ?  */}
-            <BookList /> 
-            {/* } */}
+            {token ? 
+              <BookList /> 
+              : <Redirect to='/' /> 
+            }
           </Route>
           <Route exact path='/add'>
-            {/* {user ?  */}
-            <CreateBook /> 
-            {/* // } */}
+            {token ? 
+              <CreateBook /> 
+              : <Redirect to='/' /> 
+            }
           </Route>
           <Route exact path='/update/:id'>
-            {user ? <UpdateBook /> : <Redirect to='/' />}
+            {token ? <UpdateBook /> 
+              : <Redirect to='/' />
+            }
           </Route>
         </Switch>
       </div>

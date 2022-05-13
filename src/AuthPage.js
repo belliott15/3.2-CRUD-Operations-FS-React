@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { signUp, getUser } from './services/fetch.utils';
+import { signUp, getUser, signIn } from './services/fetch.utils';
 
 export default function AuthPage({ setEmail, setToken }) {
     //set state
@@ -13,31 +13,64 @@ export default function AuthPage({ setEmail, setToken }) {
   });
 
   async function handleSignUp(e){
-    e.preventDeafault();
-    await signUp(signUpFormData.email, signInFormData.password);
+    e.preventDefault();
+    await signUp(signUpFormData.email, signUpFormData.password);
 
-    const { access_token, user: { email } } = getUser();
+    const { 
+      access_token, 
+      user: { 
+        email 
+      } 
+    } = await getUser();
+    
     setEmail(email);
     setToken(access_token);
   }
+
+  async function handleSignIn(e){
+    e.preventDefault();
+    await signIn(signInFormData.email, signInFormData.password);
+
+    const { 
+      access_token, 
+      user: { 
+        email 
+      } 
+    } = await getUser();
+    setEmail(email);
+    setToken(access_token);
+  }
+
   return (
     <div className='auth'>
       <h1>Welcome to Book-It</h1>
-      <form> Sign Up!
+      <form onSubmit={handleSignUp}> Sign Up!
         <label> Email
-          <input type='email' required />
+          <input onChange={(e) => setSignUpFormData({
+            email: e.target.value,
+            password: signUpFormData.password,
+          }) } type='email' required />
         </label>
         <label> Password
-          <input />
+          <input onChange={(e) => setSignUpFormData({
+            email: signUpFormData.email,
+            password: e.target.value, 
+          }) } type='password' required />
         </label>
         <button>Sign Up</button>
       </form>
-      <form> Sign In
+      <form onSubmit={handleSignIn}> Sign In
         <label> Email
-          <input type='email' required/>
+          <input onChange={(e) => setSignInFormData({
+            email: e.target.value,
+            password: signInFormData.password, 
+          }) } type='email' required/>
         </label>
         <label> Password
-          <input />
+          <input onChange={(e) => setSignInFormData({
+            email: signInFormData.email,
+            password: e.target.value, 
+          }) } type='password' required/>
         </label>
         <button>Sign In</button>
       </form>
