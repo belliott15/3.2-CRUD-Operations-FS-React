@@ -36,10 +36,9 @@ export async function getBookById(id){
 
 export async function updateBook(book, id){
   const response = await client
-    .from()
-    .select('*')
-    .match({ id })
-    .update(book);
+    .from('books')
+    .update(book)
+    .match({ id });
 
   return checkError(response);
 }

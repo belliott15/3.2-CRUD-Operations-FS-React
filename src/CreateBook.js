@@ -23,7 +23,7 @@ export default function CreateBook() {
   }
 
   return (
-    <div>
+    <div className='create'>
       <h2>Give us your Recommendation!</h2>
       <form onSubmit={handleNewBookSubmit}>
         <label>Title:
