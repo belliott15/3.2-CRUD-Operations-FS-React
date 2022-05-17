@@ -9,8 +9,10 @@ import {
 import AuthPage from './AuthPage';
 import BookList from './BookList';
 import CreateBook from './CreateBook';
-import { logout, getUser } from './services/fetch.utils';
 import UpdateBook from './UpdateBook';
+import { logout, getUser } from './services/fetch.utils';
+import './App.css';
+
 
 export default function App() {
   // tracking state
@@ -33,10 +35,10 @@ export default function App() {
     setUser('');
   }
   return (
-    <Router>
-      <div>
+    <Router className='App'>
+      <div >
         { token || user ?
-          <nav>
+          <nav className='App-header'>
             <ul className='navigation'>
               <li>
                 <Link to='/books'>Home</Link>
@@ -45,8 +47,10 @@ export default function App() {
                 <Link to='/add'>Add Book</Link>
               </li>
               <li>
-                <p>Welcome {email}</p>
-                <button onClick={handleLogout}>Logout</button>
+                <div className='logout'>
+                  <p>Welcome {email}</p>
+                  <button onClick={handleLogout}>Logout</button>
+                </div>
               </li>
             </ul>
           </nav> 

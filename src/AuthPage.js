@@ -44,36 +44,41 @@ export default function AuthPage({ setEmail, setToken }) {
   return (
     <div className='auth'>
       <h1>Welcome to Book-It</h1>
-      <form onSubmit={handleSignUp}> Sign Up!
-        <label> Email
-          <input onChange={(e) => setSignUpFormData({
-            email: e.target.value,
-            password: signUpFormData.password,
-          }) } type='email' required />
-        </label>
-        <label> Password
-          <input onChange={(e) => setSignUpFormData({
-            email: signUpFormData.email,
-            password: e.target.value, 
-          }) } type='password' required />
-        </label>
-        <button>Sign Up</button>
-      </form>
-      <form onSubmit={handleSignIn}> Sign In
-        <label> Email
-          <input onChange={(e) => setSignInFormData({
-            email: e.target.value,
-            password: signInFormData.password, 
-          }) } type='email' required/>
-        </label>
-        <label> Password
-          <input onChange={(e) => setSignInFormData({
-            email: signInFormData.email,
-            password: e.target.value, 
-          }) } type='password' required/>
-        </label>
-        <button>Sign In</button>
-      </form>
+      <div className='auth-page'>
+        <form className='sign' onSubmit={handleSignUp}> 
+          <h2>Sign Up</h2>
+          <label> Email
+            <input onChange={(e) => setSignUpFormData({
+              email: e.target.value,
+              password: signUpFormData.password,
+            }) } type='email' required />
+          </label>
+          <label> Password
+            <input onChange={(e) => setSignUpFormData({
+              email: signUpFormData.email,
+              password: e.target.value, 
+            }) } type='password' required />
+          </label>
+          <button>Sign Up</button>
+        </form>
+        <form className='sign' onSubmit={handleSignIn}> 
+          <h2>Sign In</h2>
+          <label> Email
+            <input onChange={(e) => setSignInFormData({
+              email: e.target.value,
+              password: signInFormData.password, 
+            }) } type='email' required/>
+          </label>
+          <label> Password
+            <input onChange={(e) => setSignInFormData({
+              email: signInFormData.email,
+              password: e.target.value, 
+            }) } type='password' required/>
+          </label>
+          <button>Sign In</button>
+        </form>
+      </div>
+      
     </div>
   );
 }
