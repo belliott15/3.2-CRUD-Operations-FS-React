@@ -35,7 +35,7 @@ export default function App() {
   return (
     <Router>
       <div>
-        { token ?
+        { token || user ?
           <nav>
             <ul className='navigation'>
               <li>
